@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephane Cliton Nyobe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+  --text:#212529;--muted:#6c757d;--faint:#adb5bd;
+  --bg:#ffffff;--bg-alt:#f8f9fa;--border:#dee2e6;
+  --accent:#0070f3;--accent-dark:#0056b3;
+  --mono:'Roboto Mono',monospace;
+  --sans:'Nunito Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --sidebar:280px;
+}
+body{font-family:var(--sans);color:var(--text);background:var(--bg);font-size:15px;line-height:1.7}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,0.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--border);z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0 2rem;height:54px}
+.nav-brand{font-weight:600;font-size:15px;color:var(--text);text-decoration:none}
+.nav-links{display:flex;gap:.25rem;list-style:none}
+.nav-links a{display:block;padding:.35rem .85rem;border-radius:4px;font-size:14px;color:var(--muted);text-decoration:none;transition:color .15s,background .15s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:#e8f0ff}
+
+/* LAYOUT */
+.page-wrap{max-width:1060px;margin:0 auto;padding:80px 2rem 3rem;display:grid;grid-template-columns:var(--sidebar) 1fr;gap:3.5rem;align-items:start}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:70px}
+
+/* Photo */
+.photo-wrap{width:200px;height:200px;border-radius:50%;overflow:hidden;border:3px solid var(--border);margin:0 auto 1.5rem;background:var(--bg-alt);display:flex;align-items:center;justify-content:center}
+.photo-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-placeholder{display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--faint);font-size:12px;text-align:center;padding:1rem;line-height:1.4}
+.photo-placeholder svg{width:52px;height:52px;stroke:var(--faint);fill:none;stroke-width:1.5}
+
+.sidebar-name{font-size:1.35rem;font-weight:600;text-align:center;margin-bottom:.25rem;line-height:1.3}
+.sidebar-title{font-size:13px;color:var(--muted);text-align:center;margin-bottom:1.25rem;line-height:1.5}
+
+/* CV button */
+.cv-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.55rem 1rem;border-radius:5px;background:var(--accent);color:white;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s;margin-bottom:.75rem}
+.cv-btn:hover{background:var(--accent-dark)}
+.cv-btn svg{width:15px;height:15px;stroke:white;fill:none;stroke-width:2.5}
+
+/* Sidebar info */
+.sidebar-info{list-style:none;margin-bottom:1.25rem;font-size:13px}
+.sidebar-info li{display:flex;align-items:flex-start;gap:.6rem;padding:.3rem 0;color:var(--muted);border-bottom:1px solid var(--border)}
+.sidebar-info li:last-child{border-bottom:none}
+.info-icon{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.8;flex-shrink:0;margin-top:3px}
+.sidebar-info a{color:var(--accent);text-decoration:none}
+.sidebar-info a:hover{text-decoration:underline}
+
+/* Social */
+.social-row{display:flex;justify-content:center;gap:.6rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.social-link{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);color:var(--muted);text-decoration:none;transition:all .15s;font-size:11px;font-family:var(--mono);font-weight:600}
+.social-link:hover{border-color:var(--accent);color:var(--accent);background:#e8f0ff}
+.social-link svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* MAIN */
+.main section{margin-bottom:3rem}
+.section-title{font-size:1.15rem;font-weight:600;border-bottom:1px solid var(--border);padding-bottom:.5rem;margin-bottom:1.25rem}
+
+/* Bio */
+.bio p{margin-bottom:1rem;color:var(--text)}
+.bio a{color:var(--accent);text-decoration:none}
+.bio a:hover{text-decoration:underline}
+.interest-list{list-style:none;margin:1rem 0}
+.interest-list li{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.4rem;font-size:14px;color:var(--muted)}
+.interest-list li::before{content:'▸';color:var(--accent);font-size:11px;margin-top:4px;flex-shrink:0}
+
+/* News */
+.news-table{width:100%;border-collapse:collapse;font-size:14px}
+.news-table td{padding:.5rem .4rem;vertical-align:top;border-bottom:1px solid var(--border)}
+.news-table tr:last-child td{border-bottom:none}
+.news-date{white-space:nowrap;color:var(--muted);font-family:var(--mono);font-size:12px;width:90px;padding-right:1rem}
+
+/* Publications */
+.pub-entry{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.pub-entry:last-child{border-bottom:none}
+.pub-num{font-family:var(--mono);font-size:12px;color:var(--faint);width:28px;flex-shrink:0;padding-top:2px;text-align:right}
+.pub-body{flex:1;min-width:0}
+.pub-title{font-weight:600;font-size:14px;margin-bottom:.25rem;line-height:1.45}
+.pub-title a{color:var(--text);text-decoration:none}
+.pub-title a:hover{color:var(--accent)}
+.pub-authors{font-size:13px;color:var(--muted);margin-bottom:.2rem}
+.pub-authors em{color:var(--text);font-style:normal;font-weight:600}
+.pub-venue{font-size:13px;color:var(--muted);font-style:italic}
+.badge{display:inline-block;font-size:11px;font-family:var(--mono);padding:2px 7px;border-radius:3px;margin-left:6px;vertical-align:middle;font-weight:500}
+.badge-c{background:#dbeafe;color:#1d4ed8}
+.badge-t{background:#fef9c3;color:#854d0e}
+
+/* Experience */
+.exp-entry{display:grid;grid-template-columns:110px 1fr;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--border);font-size:14px}
+.exp-entry:last-child{border-bottom:none}
+.exp-date{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:2px;line-height:1.5}
+.exp-role{font-weight:600;margin-bottom:.1rem}
+.exp-org{color:var(--muted);margin-bottom:.35rem;font-size:13px}
+.exp-org a{color:var(--accent);text-decoration:none}
+.exp-items{list-style:none}
+.exp-items li{display:flex;gap:.5rem;margin-bottom:.2rem;font-size:13px;color:var(--muted);line-height:1.5}
+.exp-items li::before{content:'–';color:var(--accent);flex-shrink:0}
+
+/* Education */
+.edu-entry{display:flex;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--border);font-size:14px}
+.edu-entry:last-child{border-bottom:none}
+.edu-date{font-family:var(--mono);font-size:12px;color:var(--muted);width:110px;flex-shrink:0;padding-top:2px}
+.edu-degree{font-weight:600;margin-bottom:.1rem}
+.edu-school{color:var(--muted);font-size:13px}
+.edu-grade{font-size:12px;color:var(--faint);font-family:var(--mono);margin-top:.15rem}
+
+/* Skills */
+.skill-row{display:flex;align-items:flex-start;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:14px}
+.skill-row:last-child{border-bottom:none}
+.skill-label{width:130px;flex-shrink:0;font-weight:600;font-size:13px;color:var(--text);padding-top:1px}
+.skill-tags{display:flex;flex-wrap:wrap;gap:5px}
+.skill-tag{font-size:12px;padding:3px 9px;border:1px solid var(--border);border-radius:3px;color:var(--muted);background:var(--bg-alt);font-family:var(--mono)}
+
+/* Awards */
+.award-entry{display:flex;align-items:flex-start;gap:.75rem;padding:.7rem 0;border-bottom:1px solid var(--border);font-size:14px}
+.award-entry:last-child{border-bottom:none}
+.award-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.award-name{font-weight:600}
+.award-org{color:var(--muted);font-size:13px}
+.award-desc{font-size:13px;color:var(--muted);margin-top:.2rem}
+
+/* Footer */
+footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-size:13px;color:var(--faint)}
+footer a{color:var(--muted);text-decoration:none}
+
+@media(max-width:768px){
+  .page-wrap{grid-template-columns:1fr;gap:2rem;padding:70px 1.25rem 2rem}
+  .sidebar{position:static}
+  .photo-wrap{width:150px;height:150px}
+  nav{padding:0 1rem}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">Stephane Cliton Nyobe</a>
+  <ul class="nav-links">
+    <li><a href="#about" class="active">about</a></li>
+    <li><a href="#news">news</a></li>
+    <li><a href="#publications">publications</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#skills">skills</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <!--
+    PHOTO: Once you have a profile picture, add photo.jpg to your repo root
+    and replace the entire .photo-wrap div below with:
+    <div class="photo-wrap">
+      <img src="photo.jpg" alt="Stephane Cliton Nyobe">
+    </div>
+  -->
+  <div class="photo-wrap">
+    <div class="photo-placeholder">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="7" r="4"/>
+        <path d="M4 21v-1a8 8 0 0116 0v1"/>
+      </svg>
+      Add <strong>photo.jpeg</strong><br>to your repo root
+    </div>
+  </div>
+
+  <div class="sidebar-name">Stephane Cliton Nyobe</div>
+  <div class="sidebar-title">NetOps Engineer &rarr; PhD Candidate<br>Green IoT &amp; Network Automation</div>
+
+  <!--
+    CV: Add your cv.pdf to the repo root, then this button will work automatically.
+  -->
+  <a class="cv-btn" href="cv.pdf" download>
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/>
+    </svg>
+    Download CV
+  </a>
+
+  <ul class="sidebar-info">
+    <li>
+      <svg class="info-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Bi&egrave;vres, Ile-de-France, France
+    </li>
+    <li>
+      <svg class="info-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      <a href="cliton-stephane.nyobe.auditeur@lecnam.net">cliton-stephane.nyobe.auditeur@lecnam.net</a>
+    </li>
+    <li>
+      <svg class="info-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      +33 07 49 68 42 37
+    </li>
+    <li>
+      <svg class="info-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+      CNAM Paris &mdash; MSc Networks &amp; IoT
+    </li>
+    <li>
+      <svg class="info-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+      Dassault Syst&egrave;mes &mdash; NetOps Engineer
+    </li>
+  </ul>
+
+  <div class="social-row">
+    <a class="social-link" href="https://github.com/clinton-nyobe" target="_blank" title="GitHub">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+    </a>
+    <a class="social-link" href="https://www.linkedin.com/in/cliton-stephane-nyobe/" target="_blank" title="LinkedIn">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a class="social-link" href="https://x.com/StephaneCNyobe" target="_blank" title="Twitter / X">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+    </a>
+    <a class="social-link" href="https://ieee-collabratec.ieee.org/app/p/StephaneNyobe1179489" target="_blank" title="IEEE">IEEE</a>
+  </div>
+
+  <p style="font-size:12px;color:var(--faint);text-align:center;line-height:1.5">Email is the preferred way to reach me.</p>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main" id="about">
+
+  <section class="bio">
+    <p>I am Stephane Cliton Nyobe, a network engineer and researcher based in &Icirc;le-de-France, France. I currently work as a <strong>NetOps Engineer at Dassault Syst&egrave;mes</strong>, leading network automation projects across multi-vendor environments (Cisco, Fortinet, Arista, Zscaler), while pursuing an <strong>MSc in Computer Networks and Connected Objects at CNAM Paris</strong> (2025&ndash;present).</p>
+    <p>I am actively seeking a <strong>PhD position</strong> in a laboratory focused on Green IoT and Network Automation, aiming to contribute at the intersection of computer networking, electronics, Infrastructure as Code (IaC), and data science, with an eco-friendly approach that serves real communities.</p>
+    <p>My research roots trace back to an internship at <a href="https://www.inria.fr/fr/centre-inria-de-saclay">INRIA Saclay</a> (TRiBe team), where I've contributed to build a testbed for SIMBox fraud detection in 4G LTE networks. More recently I co-authored and presented a paper accepted at <a href="https://blackseacom2026.ieee-blackseacom.org">IEEE BlackSeaCom 2026</a> conference on cost-effective smart agriculture for smallholder farmers in Sub-Saharan Africa.</p>
+    <p style="margin-top:.5rem;font-weight:600;font-size:14px">Research interests:</p>
+    <ul class="interest-list">
+      <li>Green IoT &amp; sustainable networking for resource-constrained environments</li>
+      <li>Network automation, NetDevOps &amp; Infrastructure as Code</li>
+      <li>Cellular network analysis &amp; fraud detection (SIMBox / signaling)</li>
+      <li>Smart agriculture &amp; ICT for development in Sub-Saharan Africa</li>
+      <li>Data-driven network monitoring and observability</li>
+    </ul>
+  </section>
+
+  <section id="news">
+    <div class="section-title">news</div>
+    <table class="news-table">
+      <tr><td class="news-date">Jun 2026</td><td>Presented at <strong>IEEE BlackSeaCom 2026</strong> (Romania) &mdash; &ldquo;Cost-Effective Smart Agriculture Framework for Smallholder Farmers in Sub-Saharan Africa&rdquo; with Besong John Ebot.</td></tr>
+      <tr><td class="news-date">Jan 2026</td><td>Joined <strong>IEEE</strong> as a member (ID: 101903137).</td></tr>
+    </table>
+  </section>
+
+  <section id="publications">
+    <div class="section-title">publications</div>
+
+    <div class="pub-entry">
+      <span class="pub-num">C.1</span>
+      <div class="pub-body">
+        <div class="pub-title"><a href="https://blackseacom2026.ieee-blackseacom.org/technical-sessions" target="_blank">Cost-Effective Smart Agriculture Framework for Smallholder Farmers in Sub-Saharan Africa</a><span class="badge badge-c">Conference</span></div>
+        <div class="pub-authors"><em>Stephane Cliton Nyobe</em> and Besong John Ebot</div>
+        <div class="pub-venue">IEEE International Black Sea Conference on Communications and Networking (BlackSeaCom), June 2026, Romania.</div>
+      </div>
+    </div>
+
+    <div class="pub-entry">
+      <span class="pub-num">T.1</span>
+      <div class="pub-body">
+        <div class="pub-title"><a href="https://inria.hal.science/hal-04581045v1" target="_blank">D&eacute;ploiement et configuration d&rsquo;une architecture mat&eacute;rielle de capture et d&rsquo;analyse de la signalisation des r&eacute;seaux cellulaires pour la d&eacute;tection des fraudes &agrave; la SIMBox</a><span class="badge badge-t">Master Thesis</span></div>
+        <div class="pub-authors"><em>Cliton Stephane Nyobe</em></div>
+        <div class="pub-venue">HAL Inria, September 2021, France.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-title">experience</div>
+
+    <div class="exp-entry">
+      <div class="exp-date">May 2024<br>&rarr; Present</div>
+      <div>
+        <div class="exp-role">NetOps Engineer</div>
+        <div class="exp-org"><a href="https://www.3ds.com/fr/">Dassault Syst&egrave;mes (3DS)</a> &middot; V&eacute;lizy-Villacoublay, France</div>
+        <ul class="exp-items">
+          <li>Worldwide network automation projects (BUILD and RUN)</li>
+          <li>Multi-vendor CI/CD scripts: Cisco, Fortinet, Arista, Zscaler</li>
+          <li>End-to-end: design &rarr; Python &rarr; GitLab CI &rarr; monitoring &amp; dashboarding</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-date">Aug&ndash;Nov<br>2023</div>
+      <div>
+        <div class="exp-role">Temporary Tech Lead</div>
+        <div class="exp-org">Groupe SII &middot; V&eacute;lizy-Villacoublay, France</div>
+        <ul class="exp-items">
+          <li>Led automation team in Tech Lead&rsquo;s absence</li>
+          <li>Delivered remaining Python test scripts; Bouygues Bbox CI/CD pipeline</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-date">Apr 2022<br>&rarr; Mar 2024</div>
+      <div>
+        <div class="exp-role">Network Consultant</div>
+        <div class="exp-org"><a href="https://sii-group.com/fr-FR">SII | Bouygues Telecom</a> &middot; V&eacute;lizy-Villacoublay, France</div>
+        <ul class="exp-items">
+          <li>Test automation of Bouygues Internet Access Devices (IAD)</li>
+          <li>Triple Play validation: Telephone, TV, Internet and network protocols</li>
+          <li>Python test scripts and CI/CD pipelines for software version validation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-date">Mar&ndash;Aug<br>2021</div>
+      <div>
+        <div class="exp-role">Research Intern &mdash; TRiBe team</div>
+        <div class="exp-org"><a href="https://www.inria.fr/fr/centre-inria-de-saclay">INRIA Saclay</a> &middot; Palaiseau, France</div>
+        <ul class="exp-items">
+          <li>Built a SIMBox fraud testbed in a Faraday-cage 4G LTE lab at T&eacute;l&eacute;com Paris</li>
+          <li>Explored signaling data analysis for fraud detection (NAS / S1AP)</li>
+          <li>Demonstrated abnormal attach latency as a SIMBox fingerprint</li>
+          <li>Served as the basis for subsequent published work &mdash; <a href="https://dl.acm.org/doi/10.1145/3708821.3733902" style="color:var(--accent)">SigN (ACM 2025)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-date">Feb&ndash;Mar<br>2024</div>
+      <div>
+        <div class="exp-role">Teaching Assistant</div>
+        <div class="exp-org"><a href="https://www.linkedin.com/school/ensp-yaounde/posts/?feedView=all">ENSP Yaound&eacute;</a> &middot; Cameroon</div>
+        <ul class="exp-items">
+          <li>Mobile Networks (1st year Telecom Engineering)</li>
+          <li>Introduction to IoT (2nd year Telecom Engineering)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-title">education</div>
+    <div class="edu-entry">
+      <div class="edu-date">Sep 2025<br>&rarr; Present</div>
+      <div>
+        <div class="edu-degree">MSc &mdash; Computer Networks and Connected Objects</div>
+        <div class="edu-school">Conservatoire National des Arts et M&eacute;tiers (CNAM) &middot; Paris, France</div>
+        <div class="edu-grade">Grade: Pending</div>
+      </div>
+    </div>
+    <div class="edu-entry">
+      <div class="edu-date">Sep 2021<br>&rarr; Sep 2022</div>
+      <div>
+        <div class="edu-degree">Mast&egrave;re Sp&eacute;cialis&eacute;&reg; &mdash; R&eacute;seaux et Services</div>
+        <div class="edu-school">T&eacute;l&eacute;com SudParis &middot; &Eacute;vry, France</div>
+        <div class="edu-grade">Grade: 17.19 / 20</div>
+      </div>
+    </div>
+    <div class="edu-entry">
+      <div class="edu-date">Sep 2015<br>&rarr; Sep 2021</div>
+      <div>
+        <div class="edu-degree">Master of Telecommunication Engineering</div>
+        <div class="edu-school">&Eacute;cole Nationale Sup&eacute;rieure Polytechnique &middot; Yaound&eacute;, Cameroon</div>
+        <div class="edu-grade">Grade: 3.3 / 4.0</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-title">skills &amp; tools</div>
+    <div class="skill-row"><span class="skill-label">Programming</span><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">C</span><span class="skill-tag">Arduino/C++</span><span class="skill-tag">Shell</span><span class="skill-tag">Jinja2</span></div></div>
+    <div class="skill-row"><span class="skill-label">Networking</span><div class="skill-tags"><span class="skill-tag">TCP/IP</span><span class="skill-tag">IPv6</span><span class="skill-tag">BGP</span><span class="skill-tag">MPLS</span><span class="skill-tag">VPN</span><span class="skill-tag">SDN</span><span class="skill-tag">4G LTE</span></div></div>
+    <div class="skill-row"><span class="skill-label">DevOps / IaC</span><div class="skill-tags"><span class="skill-tag">Ansible</span><span class="skill-tag">GitLab CI</span><span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">GitHub Actions</span></div></div>
+    <div class="skill-row"><span class="skill-label">Platforms</span><div class="skill-tags"><span class="skill-tag">Cisco Catalyst Center</span><span class="skill-tag">FortiManager</span><span class="skill-tag">Arista CVP</span><span class="skill-tag">ForeScout API</span><span class="skill-tag">NetBox</span><span class="skill-tag">Zscaler</span></div></div>
+    <div class="skill-row"><span class="skill-label">Observability</span><div class="skill-tags"><span class="skill-tag">Prometheus</span><span class="skill-tag">InfluxDB</span><span class="skill-tag">Grafana</span><span class="skill-tag">SQL</span></div></div>
+    <div class="skill-row"><span class="skill-label">Math / Research</span><div class="skill-tags"><span class="skill-tag">Linear Algebra</span><span class="skill-tag">Graph Theory</span><span class="skill-tag">Optimization</span><span class="skill-tag">Academic writing</span><span class="skill-tag">Wireshark</span></div></div>
+  </section>
+
+  <section id="honors">
+    <div class="section-title">honors &amp; awards</div>
+    <div class="award-entry">
+      <div class="award-icon">&#127807;</div>
+      <div>
+        <div class="award-name">Seeds for the Future Program</div>
+        <div class="award-org">Huawei Technologies Co., Ltd &middot; October 2020</div>
+        <div class="award-desc">Granted to worldwide talented ICT students to develop local talent, knowledge transfer, and digital community participation.</div>
+      </div>
+    </div>
+    <div class="award-entry">
+      <div class="award-icon">&#127942;</div>
+      <div>
+        <div class="award-name">National Finalist &mdash; Huawei ICT Competition</div>
+        <div class="award-org">Huawei &middot; February 2020</div>
+        <div class="award-desc">Selected among 12 out of 300 students. Written test and hands-on lab on computer networking with Huawei devices.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<footer>
+  &copy; 2026 Stephane Cliton Nyobe &middot; Bi&egrave;vres, France &middot;
+  Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+</footer>
+
+</body>
+</html>
